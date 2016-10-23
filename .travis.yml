@@ -1,14 +1,8 @@
 language: java
 branches:
   only:
-    - master
+    - milestone-2-test
 
-# notifications:
-#   email:
-#     - asampath@umail.iu.edu
-#     - soachar@umail.iu.edu
-#     - kgundlup@umail.iu.edu
-#     - pbheemag@umail.iu.edu
 jdk:
   - oraclejdk8
 sudo: false
@@ -23,25 +17,25 @@ before_deploy:
 
 deploy:
   - provider: s3
-    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
-    secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teamnpcomplete
+    access_key_id: $AWS_ACCESS_KEY_TEST # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY_TEST
+    bucket: sga-teamnpcomplete-test
     local_dir: dpl_java_upload
     region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
     on:
-      branch: master
+      branch: milestone-2-test
 
   - provider: codedeploy
-    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
-    secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teamnpcomplete
+    access_key_id: $AWS_ACCESS_KEY_TEST # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY_TEST
+    bucket: sga-teamnpcomplete-test
     key: SG_MICROSERVICE_REGISTRY.zip
     bundle_type: zip
-    application: TeamNPComplete
-    deployment_group: TeamNPComplete
+    application: TeamNPCompleteTest
+    deployment_group: TeamNPCompleteTest
     region: us-west-2
     on:
-      branch: master
+      branch: milestone-2-test
